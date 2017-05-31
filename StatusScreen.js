@@ -1,4 +1,4 @@
-//version 1.3.0
+//version 1.3.1
 //I  have commented more or less everything so that anyone can easily make changes and/or learn! This really helped me when I started, I hope it helps you too! :D
 
 function sayError(theProblem) {
@@ -67,16 +67,14 @@ function getAttribute(attributeName, characterID) {
             current: "",
             characterid: characterID
         });
-
-        sayError("Attribute " + "'" + attributeName + "'" + " not found, creating it...");
+        var charName = findObjs({_id: characterID})[0].get("name")
+        sayError("Attribute " + "<strong>'" + attributeName + "'</strong>" + " not found for <strong>" + charName + "</strong>, creating it...");
     }
 
     return findAtt;
 }
 
 //END FUNCTIONS
-
-
 
 on("chat:message", function(msg) {
     if(msg.type == "api" && msg.content.includes("!status ", 0) === true) {
@@ -173,6 +171,18 @@ on("chat:message", function(msg) {
                 layer: "map"
             })
             toFront(text)
+            
+            var name = createObj("text", {
+                _pageid: currentPageId,
+                left: 450,
+                top: o-32,
+                text: split[i],
+                font_size: 22,
+                color: "rgb(0,0,0)",
+                font_family: "Candal",
+                layer: "map"
+            })
+            toFront(name)
             
             //sets the current value of "harm_text" to the ID of the newly created text object
             var textId = text.get("_id"),
@@ -325,7 +335,6 @@ on("change:token:bar1_value", function(obj) {
             var attribute = 1
         }
         
-
         //Finish by setting the tokens displayed graphics with the new random side.
         obj.set("imgsrc", tableImage(check, attribute));
         
