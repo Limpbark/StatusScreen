@@ -11,6 +11,8 @@ Create one table for each relevant attribute ("stress", "trauma", "armor", "heav
 ## Step 3: Setup Script
 Add the script to the campaign and type "!status" followed by the character names, seperated by "--". For example, for a campaign containing 4 characters named Aldo, Carriless Firm, Miss Cattaby and Rune, you would type ```!status --Aldo --Carriless Firm --Miss Cattaby --Rune``` 
 
+---
+
 ### v1.3.1 
 * Now specifices which character it was who was missing an attribute
 * Now creates the text object with all the names, but they require manual positioning
