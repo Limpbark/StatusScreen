@@ -1,10 +1,12 @@
-//version 1.3.1
+//version 1.3.2
 //I  have commented more or less everything so that anyone can easily make changes and/or learn! This really helped me when I started, I hope it helps you too! :D
 
+//A short simple function to make posting in chat a bit easier
 function sayError(theProblem) {
     sendChat("Status", "/w gm " + theProblem, null, { noarchive: true});
 }
 
+//Gets a characters ID from their name and returns "false" if it doesn't exist.
 function getCharID(charName) {
     var characters = findObjs({ type: "character", name: charName })[0];
 
@@ -54,10 +56,11 @@ function tableImage(tableObjName, tableSide) {
     var newTableURL = newTableURL.replace("/max.","/thumb.");
     var newTableURL = newTableURL.replace("/med.","/thumb.");
 
-    //Finish by setting the tokens displayed graphics with the new random side.
+    //Returns the URL
     return newTableURL;
 }
 
+//Gets a characters function using the attributes name and the character's ID. Creates the attribute if none is found.
 function getAttribute(attributeName, characterID) {
     var findAtt = findObjs({name: attributeName, _type: "attribute", _characterid: characterID})[0];
 
@@ -74,7 +77,6 @@ function getAttribute(attributeName, characterID) {
     return findAtt;
 }
 
-//END FUNCTIONS
 
 on("chat:message", function(msg) {
     if(msg.type == "api" && msg.content.includes("!status ", 0) === true) {
@@ -172,6 +174,7 @@ on("chat:message", function(msg) {
             })
             toFront(text)
             
+            //Creates the name text
             var name = createObj("text", {
                 _pageid: currentPageId,
                 left: 450,
@@ -237,7 +240,6 @@ on("change:attribute", function(obj) {
     var name = obj.get("name"),
         nameCheck = name.includes("harm");
         
-    
     if(nameCheck === true) {
         var belongsTo = obj.get("characterid"),
             token = findObjs({type: "graphic", subtype: "token", name: "injury", represents: belongsTo})[0],
@@ -251,9 +253,9 @@ on("change:attribute", function(obj) {
             }
             
         var harmText = getObj('text', harmTextId);
-        
-        
-        for(i = 0; i < 5; i++) {
+    
+        //Goes through harm1_1 to harm2_2 and adds their value to harmCurrent, and increases attribute by 1 for each attribute that isn't empty
+        for(i = 0; i < 4; i++) {
             var harm = getAttribute(attributeType[i], belongsTo).get("current")
             harmCurrent.push(harm)
             if(harm !== "") {
@@ -263,11 +265,14 @@ on("change:attribute", function(obj) {
             
         }
         
-        var harm3 = getAttribute(attributeType[5], belongsTo).get("current")
+        //Adds harm3's value to harmCurrent and increases attribute by 2 if it isn't empty
+        var harm3 = getAttribute(attributeType[4], belongsTo).get("current")
         harmCurrent.push(harm3)
         if(harm3 !== "") {
             var attribute = attribute + 2
         }
+        
+        log(harmCurrent)
         
         //Finish by setting the tokens displayed graphics with the new random side.
         token.set("imgsrc", tableImage("injury", attribute));
