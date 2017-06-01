@@ -15,7 +15,7 @@ Add the script to the campaign and type "!status" followed by the character name
 * Now specifices which character it was who was missing an attribute
 * Now creates the text object with all the names, but they require manual positioning
 
-### v1.3.0 / v1.3.1
+### v1.3.0
 * Fixed layer problem by sending all images to front as they're created
 * Now says in chat when it runs into a problem, and what that problem is
 * Now creates attributes if they exist, rather than stopping
