@@ -271,8 +271,6 @@ on("change:attribute", function(obj) {
             var attribute = attribute + 2
         }
         
-        log(harmCurrent)
-        
         //Finish by setting the tokens displayed graphics with the new random side.
         token.set("imgsrc", tableImage("injury", attribute));
         
