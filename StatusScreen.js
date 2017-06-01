@@ -239,7 +239,7 @@ on("change:attribute", function(obj) {
     //only run if the name of the changed attribute includes "harm"
     var name = obj.get("name"),
         nameCheck = name.includes("harm");
-        
+
     if(nameCheck === true) {
         var belongsTo = obj.get("characterid"),
             token = findObjs({type: "graphic", subtype: "token", name: "injury", represents: belongsTo})[0],
@@ -251,16 +251,15 @@ on("change:attribute", function(obj) {
             if(harmTextId == undefined) {
                 return;
             }
-            
+
         var harmText = getObj('text', harmTextId);
-    
+
         //Goes through harm1_1 to harm2_2 and adds their value to harmCurrent, and increases attribute by 1 for each attribute that isn't empty
         for(i = 0; i < 4; i++) {
             var harm = getAttribute(attributeType[i], belongsTo).get("current")
             harmCurrent.push(harm)
             if(harm !== "") {
                 var attribute = attribute + 1
-                
             }
             
         }
@@ -285,13 +284,13 @@ on("change:attribute", function(obj) {
             var h1 = ""
             var h1p = ""
         };
-        
+
         if(harmCurrent[0] !== "" && harmCurrent[1] !== "") {
             var h1c = ", "
         } else {
             var h1c = ""
         };
-        
+
         if(harmCurrent[2] !== "" || harmCurrent[3] !== "") {
             var h2 = "2 ("
             var h2p = ") -1d.  "
@@ -299,13 +298,13 @@ on("change:attribute", function(obj) {
             var h2 = ""
             var h2p = ""
         };
-            
+
         if(harmCurrent[2] !== "" && harmCurrent[3] !== "") {
             var h2c = ", "
         } else {
             var h2c = ""
         };
-        
+
         if(harmCurrent[4] !== "") {
             var h3 = "3 ("
             var h3p = ") Needs Help."
@@ -313,7 +312,7 @@ on("change:attribute", function(obj) {
             var h3 = ""
             var h3p = ""
         };
-        
+
         harmText.set("text", "HARM: " + h1 + harmCurrent[0] + h1c + harmCurrent[1] + h1p + h2 + harmCurrent[2] + h2c + harmCurrent[3] + h2p + h3 + harmCurrent[4] + h3p)
 
         } return;
